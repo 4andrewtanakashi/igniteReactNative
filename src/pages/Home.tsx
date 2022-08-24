@@ -10,6 +10,7 @@ import {
 
 import {Button} from '../components/Button';
 import {Card} from '../components/Card';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 interface ValueList {
     id: string;
@@ -18,7 +19,7 @@ interface ValueList {
 }
 
 export function Home () {
-  
+
     const [valueInput, setValueInput] = useState('');
     const [valueList, setValueList] = useState<ValueList[]>([]);
     const [messageItem, setMessageItem] = useState('none');
@@ -36,7 +37,7 @@ export function Home () {
                 setGretting("Good Afternoon!");
             else
                 setGretting("Good Evening :<");
-            
+
             if (valueList.length > 0)
                 setMessageItem('flex');
             else
@@ -66,44 +67,46 @@ export function Home () {
     }
 
     return(
-        <View style={stylesCustom.container}>
+        <>
+            <View style={stylesCustom.container}>
+                <FontAwesome5 name={'home'} size={30} color="#F04"/>
+                <Text style={stylesCustom.title} >
+                    Test App |ZERO|
+                </Text>
 
-            <Text style={stylesCustom.title} >
-                Test App |ZERO|
-            </Text>
+                <Text style={{color:'#FFF', fontSize:15, marginBottom:5, paddingHorizontal:15}}>
+                    {greeting}
+                </Text>
 
-            <Text style={{color:'#FFF', fontSize:15, marginBottom:5, paddingHorizontal:15}}>
-                {greeting}
-            </Text>
-            
-            <TextInput 
-                style={stylesCustom.input}
-                placeholder="Digite algo"
-                placeholderTextColor="#555"
-                onChangeText={value => {value !== ''? setValueInput(value) : Alert.alert('Digite algo')}}
-            />
+                <TextInput
+                    style={stylesCustom.input}
+                    placeholder="Digite algo"
+                    placeholderTextColor="#555"
+                    onChangeText={value => {value !== ''? setValueInput(value) : Alert.alert('Digite algo')}}
+                />
 
-            <Button 
-                value={"Cadastrar"} 
-                onPress={handleValueInput}
-            />
-            
-            <Text style={[stylesCustom.title, {marginTop: 50, display: messageItem}]}>
-                List Items:
-            </Text>
+                <Button
+                    value={"Cadastrar"}
+                    onPress={handleValueInput}
+                />
 
-            <FlatList 
-                data={valueList}
-                keyExtrator={ item => item.id}
-                renderItem={({item}) => (
-                    <Card 
-                        items={item.name}
-                        onPress={_ => handleDelete(item)}
-                    />
-                ) }
-            />
+                <Text style={[stylesCustom.title, {marginTop: 50, display: messageItem}]}>
+                    List Items:
+                </Text>
 
-        </View>
+                <FlatList
+                    data={valueList}
+                    keyExtrator={ item => item.id}
+                    renderItem={({item}) => (
+                        <Card
+                            items={item.name}
+                            onPress={_ => handleDelete(item)}
+                        />
+                    ) }
+                />
+
+            </View>
+        </>
     );
 }
 
@@ -129,6 +132,6 @@ const stylesCustom = StyleSheet.create(
             mariginTop:30,
             borderRadius: 7
         },
-    
+
     }
 );
